@@ -1,2 +1,2 @@
-# crpm-eks-app
-Example of how to run an app in EKS with CRPM
+# Octank EKS Cluster with CDK
+This repository holds the cyclos app that will be deployed using AWS CodePipeline process.

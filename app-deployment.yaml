@@ -1,0 +1,87 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cyclos-db
+  labels:
+    app: cyclos-db
+spec:
+  ports:
+    - port: 5432
+      protocol: TCP
+      targetPort: 5432
+      name: cyclos-db
+  selector:
+    app: cyclos-db
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cyclos-db
+spec:
+  selector:
+    matchLabels:
+      app: cyclos-db
+  template:
+    metadata:
+      labels:
+        app: cyclos-db
+      name: cyclos-db
+    spec:
+      containers:
+      - name: cyclos-db
+        image: cyclos/db
+        env:
+          - name: POSTGRES_DB
+            value: "optiv"
+          - name: POSTGRES_USER
+            value: "optiv"
+          - name: POSTGRES_PASSWORD
+            value: "optiv2019"
+        ports:
+        - containerPort: 5432
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cyclos-app
+  labels:
+    app: cyclos-app
+spec:
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: 8080
+      name: cyclos-app
+  selector:
+    app: cyclos-app
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cyclos-app
+spec:
+  selector:
+    matchLabels:
+      app: cyclos-app
+  template:
+    metadata:
+      labels:
+        app: cyclos-app
+      name: cyclos-app
+    spec:
+      containers:
+      - name: cyclos-app
+        image: cyclos/cyclos
+        env:
+          - name: DB_HOST
+            value: "cyclos-db"
+          - name: DB_NAME
+            value: "optiv"
+          - name: DB_USER
+            value: "optiv"
+          - name: DB_PASSWORD
+            value: "optiv2019"
+        ports:
+        - containerPort: 8080
