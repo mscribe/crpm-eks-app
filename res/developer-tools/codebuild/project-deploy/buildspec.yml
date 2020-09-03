@@ -1,0 +1,18 @@
+version: 0.2
+phases:
+  pre_build:
+    commands:
+      - CREDENTIALS=$(aws sts assume-role --role-arn $ROLE_ARN --role-session-name codebuild-kubectl)
+      - export AWS_ACCESS_KEY_ID="$(echo ${CREDENTIALS} | jq -r '.Credentials.AccessKeyId')"
+      - export AWS_SECRET_ACCESS_KEY="$(echo ${CREDENTIALS} | jq -r '.Credentials.SecretAccessKey')"
+      - export AWS_SESSION_TOKEN="$(echo ${CREDENTIALS} | jq -r '.Credentials.SessionToken')"
+      - export AWS_EXPIRATION=$(echo ${CREDENTIALS} | jq -r '.Credentials.Expiration')
+      - export KUBECONFIG=$HOME/.kube/config
+      - aws eks update-kubeconfig --name $CLUSTER_NAME
+  build:
+    commands:
+      - sed -i 's@CONTAINER_IMAGE@'"$ECR_REPO_URI:$CODEBUILD_RESOLVED_SOURCE_VERSION"'@' app-deployment.yaml
+  post_build:
+    commands:
+      - echo Deploying application...
+      - kubectl apply -f app-deployment.yaml
