@@ -5,6 +5,6 @@ import { CicdStack } from '../lib/ci-cd-stack';
 
 const app = new cdk.App();
 new CicdStack(app, 'cicd', {
-  stackName: 'eks-ci-cd-infra',
-  description: 'Infrastructure CI-CD'
+  stackName: 'eks-ci-cd-app',
+  description: 'Application CI-CD'
 });
