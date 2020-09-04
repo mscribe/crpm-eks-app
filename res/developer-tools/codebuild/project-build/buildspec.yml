@@ -19,7 +19,7 @@ phases:
     commands:
       - echo Build started `date`
       - echo Synthesizing AWS CloudFormation template...
-      - cdk synth cicd cicd --parameters CfnRoleArn=$ROLE_ARN --parameters ClusterName=$CLUSTER_NAME
+      - cdk synth cicd --parameters CfnRoleArn=$ROLE_ARN --parameters ClusterName=$CLUSTER_NAME
       - echo Building and tagging Docker image...
       - docker build -t $ECR_REPO_URI:latest .
       - docker tag $ECR_REPO_URI:latest $ECR_REPO_URI:$CODEBUILD_RESOLVED_SOURCE_VERSION
