@@ -93,6 +93,12 @@ export class CicdStack extends cdk.Stack {
       environmentVariables: [{
         name: 'ECR_REPO_URI',
         value: ecrRepo.repositoryUri
+      }, {
+        name: 'ROLE_ARN',
+        value: cfnRoleArnParameter.valueAsString
+      }, {
+        name: 'CLUSTER_NAME',
+        value: clusterNameParameter.valueAsString
       }],
       image: 'aws/codebuild/amazonlinux2-x86_64-standard:3.0',
       privilegedMode: true,
