@@ -249,6 +249,7 @@ stages:
           Capabilities: 'CAPABILITY_IAM,CAPABILITY_NAMED_IAM'
           ChangeSetName: 'pipeline'
           OutputFileName: 'create-change-set/pipeline.json'
+#          ParameterOverrides: ''
 #          RoleArn: ''
 #          StackName: ''
           TemplatePath: 'Package::cdk.out/cicd.template.json'
