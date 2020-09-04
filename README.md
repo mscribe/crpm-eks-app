@@ -19,8 +19,8 @@ cd crpm-eks-app
 # Replace the first ? with the management role ARN used to
 # deploy EKS and the second ? with the EKS cluster name
 cdk deploy cicd \
-    --parameters CfnRoleArn=arn:aws:iam::774461968944:role/eks-role-us-east-1 \
-    --parameters ClusterName=eks-cluster
+    --parameters CfnRoleArn= \
+    --parameters ClusterName=
 ```
 
 ## Destroy Stack
