@@ -16,8 +16,11 @@ git clone https://github.com/mscribe/crpm-eks-app
 cd crpm-eks-app
 
 # Deploy the application CI/CD, which deploys the application
-# Replace ? with the management role ARN used to deploy EKS
-cdk deploy cicd --parameters CfnRoleArn=?
+# Replace the first ? with the management role ARN used to
+# deploy EKS and the second ? with the EKS cluster name
+cdk deploy cicd \
+    --parameters CfnRoleArn=arn:aws:iam::774461968944:role/eks-role-us-east-1 \
+    --parameters ClusterName=eks-cluster
 ```
 
 ## Destroy Stack

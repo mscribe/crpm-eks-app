@@ -159,7 +159,7 @@ stages:
         # Documentation: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-stages-actions.html#cfn-codepipeline-pipeline-stages-actions-name
         # Type: string
         # Required
-        name: 'SynthesizeAndTest'
+        name: 'BuildAndTest'
 
         # Documentation: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-stages-actions.html#cfn-codepipeline-pipeline-actiondeclaration-namespace
         # Type: string
