@@ -435,8 +435,9 @@ stages:
           Capabilities: 'CAPABILITY_IAM,CAPABILITY_NAMED_IAM'
           ChangeSetName: 'pipeline'
           OutputFileName: 'execute-change-set/pipeline.json'
+#          ParameterOverrides: ''
 #          RoleArn: ''
-#          StackName: ""
+#          StackName: ''
           TemplatePath: 'Package::cdk.out/cicd.template.json'
 
         # Documentation: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-stages-actions.html#cfn-codepipeline-pipeline-stages-actions-inputartifacts

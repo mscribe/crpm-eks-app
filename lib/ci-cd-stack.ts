@@ -146,8 +146,10 @@ export class CicdStack extends cdk.Stack {
     const stages = (pipelineProps.stages as any);
     stages[0].actions[0].configuration.RepositoryName = repo.attrName;
     stages[1].actions[0].configuration.ProjectName = buildProject.ref;
+    stages[2].actions[0].configuration.ParameterOverrides = cdk.Fn.join('', ['{"CfnRoleArn": "', cfnRoleArnParameter.valueAsString, '","ClusterName": "', clusterNameParameter.valueAsString, '"}']);
     stages[2].actions[0].configuration.RoleArn = cfnRoleArnParameter.valueAsString;
     stages[2].actions[0].configuration.StackName = cdk.Aws.STACK_NAME;
+    stages[3].actions[0].configuration.ParameterOverrides = stages[2].actions[0].configuration.ParameterOverrides;
     stages[3].actions[0].configuration.RoleArn = cfnRoleArnParameter.valueAsString;
     stages[3].actions[0].configuration.StackName = cdk.Aws.STACK_NAME;
     stages[3].actions[1].configuration.ProjectName = deployProject.ref;
