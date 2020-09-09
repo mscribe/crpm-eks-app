@@ -9,7 +9,7 @@ phases:
       - npm uninstall -g cdk
       - npm install -g aws-cdk@1.57.0 typescript
       - echo Installing CDK application...
-      - npm i
+      - cd infra; npm i
   pre_build:
     commands:
       - echo Logging into Amazon ECR...
