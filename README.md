@@ -45,23 +45,6 @@ need to edit the trust relationship so that the CodeBuild ARN is allowed to assu
     }
 ```
 
-```bash
-# Copy the ARN of the Fargate pod execution role deployed above in EksStack.  It's visible in the
-# deploy **Outputs** and looks like arn:aws:iam::123:role/eks-role.  Then, create the Fargate profile
-# to target CoreDNS pods using that role by passing in the role ARN with --pod-execution-role-arn.
-aws eks create-fargate-profile \
-    --fargate-profile-name profile-eks-fargate-cluster \
-    --cluster-name eks-fargate-cluster \
-    --pod-execution-role-arn  \
-    --selectors namespace=kube-system,labels={k8s-app=kube-dns}
-
-# Remove eks.amazonaws.com/compute-type : ec2 annotation from CoreDNS pods
-k patch deployment coredns \
-        -n kube-system \
-        --type json \
-        -p='[{"op": "remove", "path": "/spec/template/metadata/annotations/eks.amazonaws.com~1compute-type"}]'
-```
-
 ## Destroy Stack
 
 ```bash

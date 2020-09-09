@@ -15,6 +15,18 @@ export class CicdStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
     
+    // CloudFormation role ARN parameter
+    const eksRoleArnParameter = new cdk.CfnParameter(this, 'EksRoleArn', {
+      type: 'String',
+      description: 'Role ARN used by CloudFormation to deploy'
+    });
+    
+    // Cluster name parameter
+    const clusterNameParameter = new cdk.CfnParameter(this, 'ClusterName', {
+      type: 'String',
+      description: 'Name of EKS cluster to deploy app in'
+    });
+    
     // CloudFormation role
     // After this role has been used by the pipeline, it needs to stick around
     // until the very end when deleting the stack, because it will need to be
@@ -36,18 +48,6 @@ export class CicdStack extends cdk.Stack {
       );
       artifactBucketName = artifactBucket.ref;
     }
-    
-    // CloudFormation role ARN parameter
-    const eksRoleArnParameter = new cdk.CfnParameter(this, 'EksRoleArn', {
-      type: 'String',
-      description: 'Role ARN used by CloudFormation to deploy'
-    });
-    
-    // Cluster name parameter
-    const clusterNameParameter = new cdk.CfnParameter(this, 'ClusterName', {
-      type: 'String',
-      description: 'Name of EKS cluster to deploy app in'
-    });
     
     // Lambda role
     const fnRoleProps = crpm.load<iam.CfnRoleProps>(
