@@ -13,7 +13,7 @@ npm i
 git clone https://github.com/mscribe/crpm-eks-app
 
 # Change directory
-cd crpm-eks-app
+cd crpm-eks-app/infra
 
 # Deploy the application CI/CD, which deploys the application
 # Replace the first ? with the management role ARN used to
