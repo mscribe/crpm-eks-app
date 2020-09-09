@@ -31,7 +31,7 @@ need to edit the trust relationship so that the CodeBuild role ARN is allowed to
 1.  In the AWS Console, navigate to IAM -> Roles.
 2.  Search for the existing EKS role that was used to create the EKS cluster initially, and open the role.
 3.  Click the **Trust Relationships** tab.
-4.  Click **Edit trust relationship**.
+4.  Click the **Edit trust relationship** button.
 5.  Add the following statement into the **Statement** list, replacing the ARN below with the ARN of your
     IAM role used by the CodeBuild project created for deploying the application.  The CodeBuild Role ARN
     can be seen in the **Outputs** after deploying cicd.
