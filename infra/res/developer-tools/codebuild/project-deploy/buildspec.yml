@@ -11,8 +11,8 @@ phases:
       - aws eks update-kubeconfig --name $CLUSTER_NAME
   build:
     commands:
-      - sed -i 's@CONTAINER_IMAGE@'"$ECR_REPO_URI:$CODEBUILD_RESOLVED_SOURCE_VERSION"'@' app-deployment.yaml
+      - sed -i 's@CONTAINER_IMAGE@'"$ECR_REPO_URI:$CODEBUILD_RESOLVED_SOURCE_VERSION"'@' deployment.yaml
   post_build:
     commands:
       - echo Deploying application...
-      - kubectl apply -f app-deployment.yaml
+      - kubectl apply -f deployment.yaml

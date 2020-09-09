@@ -1,32 +1,15 @@
-# Dockerfile for Cyclos project (http://www.cyclos.org)
-FROM tomcat:jre8
+FROM node:13.6.0-alpine
 
-# Environmet setup
-ENV CYCLOS_VERSION 4.13
-ENV CYCLOS_HOME /usr/local/cyclos
-ENV CYCLOS_LOGDIR /var/log/cyclos
+ARG VERSION
+ARG REVISION
 
-# Download and extract the Cyclos package, and remove the temporary files.
-# The ca-certificates / openssl packages are left because they could be needed in runtime.
-RUN set -x && \
-    apt-get update && apt-get install -y ca-certificates openssl fonts-dejavu && \
-    wget "https://license.cyclos.org/downloads/cyclos/cyclos-${CYCLOS_VERSION}.zip" -O /tmp/cyclos.zip && \
-    unzip /tmp/cyclos.zip -d /tmp && \
-    mkdir -p ${CYCLOS_HOME} && \
-    mkdir -p ${CYCLOS_LOGDIR} && \
-    mv /tmp/cyclos-${CYCLOS_VERSION}/web/* ${CYCLOS_HOME} && \
-    rm -rf /tmp/cyclos* &&\
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+LABEL org.opencontainers.image.title="App" \
+      org.opencontainers.image.version=$VERSION \
+      org.opencontainers.image.revision=$REVISION 
 
-# Change the workdir to CYCLOS_HOME and copy the docker properties to the regular properties
-WORKDIR ${CYCLOS_HOME}
-RUN cp WEB-INF/classes/cyclos-docker.properties WEB-INF/classes/cyclos.properties
+ADD app /usr/src/app
+WORKDIR /usr/src/app
+RUN npm install
 
-# Tomcat setup
-RUN rm -rf /usr/local/tomcat/webapps/*
-RUN ln -s ${CYCLOS_HOME} /usr/local/tomcat/webapps/ROOT
-COPY context.xml /usr/local/tomcat/conf/context.xml
-
-# Set the log dir as a persistent volume
-VOLUME ${CYCLOS_LOGDIR}
+USER node
+CMD [ "npm", "start" ]
