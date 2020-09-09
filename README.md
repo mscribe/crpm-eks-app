@@ -23,7 +23,7 @@ cdk deploy cicd \
     --parameters ClusterName=eks-cluster
 ```
 
-## Configure EKS Role for CodeBuild
+## Allow CodeBuild to Assume EKS Role
 
 CodeBuild will need to assume the existing EKS role in order to deploy the application.  So, you will
 need to edit the trust relationship so that the CodeBuild role ARN is allowed to assume the EKS role.
