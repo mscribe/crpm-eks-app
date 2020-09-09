@@ -15,6 +15,16 @@ export class CicdStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
     
+    // CloudFormation role
+    // After this role has been used by the pipeline, it needs to stick around
+    // until the very end when deleting the stack, because it will need to be
+    // assumed to delete resources that were modified by the pipeline
+    const cfnRoleProps = crpm.load<iam.CfnRoleProps>(
+      `${__dirname}/../res/security-identity-compliance/iam/role-cloudformation/props.yaml`
+    );
+    cfnRoleProps.roleName = `cloudformation-${cdk.Aws.STACK_NAME}`;
+    const cfnRole = new iam.CfnRole(this, 'CloudFormationRole', cfnRoleProps);
+    
     // S3 bucket
     let artifactBucket: s3.CfnBucket;
     let artifactBucketName = this.node.tryGetContext('artifact_bucket_name');
@@ -28,7 +38,7 @@ export class CicdStack extends cdk.Stack {
     }
     
     // CloudFormation role ARN parameter
-    const cfnRoleArnParameter = new cdk.CfnParameter(this, 'CfnRoleArn', {
+    const eksRoleArnParameter = new cdk.CfnParameter(this, 'EksRoleArn', {
       type: 'String',
       description: 'Role ARN used by CloudFormation to deploy'
     });
@@ -94,8 +104,8 @@ export class CicdStack extends cdk.Stack {
         name: 'ECR_REPO_URI',
         value: ecrRepo.repositoryUri
       }, {
-        name: 'ROLE_ARN',
-        value: cfnRoleArnParameter.valueAsString
+        name: 'EKS_ROLE_ARN',
+        value: eksRoleArnParameter.valueAsString
       }, {
         name: 'CLUSTER_NAME',
         value: clusterNameParameter.valueAsString
@@ -115,8 +125,8 @@ export class CicdStack extends cdk.Stack {
     deployProjectProps.environment = {
       computeType: 'BUILD_GENERAL1_SMALL',
       environmentVariables: [{
-        name: 'ROLE_ARN',
-        value: cfnRoleArnParameter.valueAsString
+        name: 'EKS_ROLE_ARN',
+        value: eksRoleArnParameter.valueAsString
       }, {
         name: 'CLUSTER_NAME',
         value: clusterNameParameter.valueAsString
@@ -146,11 +156,11 @@ export class CicdStack extends cdk.Stack {
     const stages = (pipelineProps.stages as any);
     stages[0].actions[0].configuration.RepositoryName = repo.attrName;
     stages[1].actions[0].configuration.ProjectName = buildProject.ref;
-    stages[2].actions[0].configuration.ParameterOverrides = cdk.Fn.join('', ['{"CfnRoleArn": "', cfnRoleArnParameter.valueAsString, '","ClusterName": "', clusterNameParameter.valueAsString, '"}']);
-    stages[2].actions[0].configuration.RoleArn = cfnRoleArnParameter.valueAsString;
+    stages[2].actions[0].configuration.ParameterOverrides = cdk.Fn.join('', ['{"EksRoleArn": "', eksRoleArnParameter.valueAsString, '","ClusterName": "', clusterNameParameter.valueAsString, '"}']);
+    stages[2].actions[0].configuration.RoleArn = cfnRole.attrArn;
     stages[2].actions[0].configuration.StackName = cdk.Aws.STACK_NAME;
     stages[3].actions[0].configuration.ParameterOverrides = stages[2].actions[0].configuration.ParameterOverrides;
-    stages[3].actions[0].configuration.RoleArn = cfnRoleArnParameter.valueAsString;
+    stages[3].actions[0].configuration.RoleArn = cfnRole.attrArn;
     stages[3].actions[0].configuration.StackName = cdk.Aws.STACK_NAME;
     stages[3].actions[1].configuration.ProjectName = deployProject.ref;
     pipelineProps.artifactStore = {
