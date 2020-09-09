@@ -190,6 +190,10 @@ export class CicdStack extends cdk.Stack {
     target.roleArn = eventsRole.attrArn;
     new events.CfnRule(this, 'Rule', ruleProps);
     
+    // CodeCommit Clone URL
     new cdk.CfnOutput(this, 'CodeCommitURL', {value: repo.attrCloneUrlHttp});
+    
+    // CodeBuild Role ARN
+    new cdk.CfnOutput(this, 'CodeBuildRoleArn', {value: projectRole.attrArn});
   }
 }
