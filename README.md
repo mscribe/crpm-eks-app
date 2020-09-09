@@ -19,8 +19,8 @@ cd crpm-eks-app/infra
 # Replace the first ? with the management role ARN used to
 # deploy EKS and the second ? with the EKS cluster name
 cdk deploy cicd \
-    --parameters EksRoleArn=arn:aws:iam::774461968944:role/eks-role-us-east-1 \
-    --parameters ClusterName=eks-cluster
+    --parameters EksRoleArn=? \
+    --parameters ClusterName=?
 ```
 
 ## Allow CodeBuild to Assume EKS Role
