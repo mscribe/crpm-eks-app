@@ -52,6 +52,9 @@ Now, the **KubectlApply** action in the **Deploy** stage of CodePipeline should 
 ## Destroy Stack
 
 ```bash
+# Delete the deployments
+kubectl delete deploy cyclos-app cyclos-db
+
 # Destroy the CI/CD pipeline
 cdk destroy cicd
 ```
