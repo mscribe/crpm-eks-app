@@ -1,6 +1,6 @@
-# Cyclos Application
+# Example Application
 
-Deploy the Cyclos app with CI/CD in an existing EKS cluster.
+Deploy an example app with CI/CD in an existing EKS cluster.
 
 ## Deploy Stack
 
@@ -52,8 +52,8 @@ Now, the **KubectlApply** action in the **Deploy** stage of CodePipeline should 
 ## Destroy Stack
 
 ```bash
-# Delete the deployments
-kubectl delete deploy cyclos-app cyclos-db
+# Delete the deployment
+kubectl delete deploy app
 
 # Destroy the CI/CD pipeline
 cdk destroy cicd
