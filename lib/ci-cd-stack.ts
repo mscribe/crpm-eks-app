@@ -55,6 +55,7 @@ export class CicdStack extends cdk.Stack {
     );
     fnRoleProps.roleName = `lambda-${cdk.Aws.STACK_NAME}`;
     const fnRole = new iam.CfnRole(this, 'LambdaRole', fnRoleProps);
+    fnRole.addDependsOn(cfnRole);
     
     // Lambda function
     const fnDir = `${__dirname}/../res/compute/lambda/function-custom-resource`;
