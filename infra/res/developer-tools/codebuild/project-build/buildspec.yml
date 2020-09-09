@@ -10,6 +10,7 @@ phases:
       - npm install -g aws-cdk@1.57.0 typescript
       - echo Installing CDK application...
       - cd infra
+      - pwd
       - npm i
   pre_build:
     commands:
@@ -18,11 +19,14 @@ phases:
   build:
     commands:
       - echo Build started `date`
+      - pwd
       - echo Synthesizing AWS CloudFormation template...
       - cd infra
+      - pwd
       - cdk synth cicd --parameters EksRoleArn=$EKS_ROLE_ARN --parameters ClusterName=$CLUSTER_NAME
       - echo Building and tagging Docker image...
       - cd ..
+      - pwd
       - docker build --build-arg VERSION=$CODEBUILD_RESOLVED_SOURCE_VERSION -t $ECR_REPO_URI:latest .
       - docker tag $ECR_REPO_URI:latest $ECR_REPO_URI:$CODEBUILD_RESOLVED_SOURCE_VERSION
   post_build:
