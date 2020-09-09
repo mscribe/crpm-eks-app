@@ -252,7 +252,7 @@ stages:
 #          ParameterOverrides: ''
 #          RoleArn: ''
 #          StackName: ''
-          TemplatePath: 'Package::infra/cdk.out/cicd.template.json'
+          TemplatePath: 'Package::cdk.out/cicd.template.json'
 
         # Documentation: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-stages-actions.html#cfn-codepipeline-pipeline-stages-actions-inputartifacts
         # Type: list
@@ -439,7 +439,7 @@ stages:
 #          ParameterOverrides: ''
 #          RoleArn: ''
 #          StackName: ''
-          TemplatePath: 'Package::infra/cdk.out/cicd.template.json'
+          TemplatePath: 'Package::cdk.out/cicd.template.json'
 
         # Documentation: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-stages-actions.html#cfn-codepipeline-pipeline-stages-actions-inputartifacts
         # Type: list
