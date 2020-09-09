@@ -9,11 +9,6 @@ assumeRolePolicyDocument:
         Service: cloudformation.amazonaws.com
       Action:
         - sts:AssumeRole
-    - Effect: Allow
-      Principal:
-        AWS: ''
-      Action:
-        - sts:AssumeRole
 
 # Documentation: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html#cfn-iam-role-description
 # Type: string
