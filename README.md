@@ -45,6 +45,7 @@ need to edit the trust relationship so that the CodeBuild role ARN is allowed to
       "Action": "sts:AssumeRole"
     }
 ```
+6.  Click the **Update Trust Policy** button.
 
 ## Destroy Stack
 
