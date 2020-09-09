@@ -26,7 +26,7 @@ cdk deploy cicd \
 ## Configure EKS Role for CodeBuild
 
 CodeBuild will need to assume the existing EKS role in order to deploy the application.  So, you will
-need to edit the trust relationship so the CodeBuild ARN is allowed to assume the EKS role.
+need to edit the trust relationship so that the CodeBuild ARN is allowed to assume the EKS role.
 
 1.  In the AWS Console, navigate to IAM -> Roles.
 2.  Search for the existing EKS role that was used to create the EKS cluster initially, and open the role.
@@ -39,7 +39,7 @@ need to edit the trust relationship so the CodeBuild ARN is allowed to assume th
     {
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:codebuild:us-east-1:12345678901234:eks-ci-cd-app-deploy"
+        "AWS": "arn:aws:codebuild:us-east-1:12345678901234:project/eks-ci-cd-app-deploy"
       },
       "Action": "sts:AssumeRole"
     }
