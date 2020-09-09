@@ -32,7 +32,8 @@ need to edit the trust relationship so the CodeBuild ARN is allowed to assume th
 2.  Search for the existing EKS role that was used to create the EKS cluster initially, and open the role.
 3.  Click the **Trust Relationships** tab.
 4.  Click **Edit trust relationship**.
-5.  Add the following statement into the Statement list:
+5.  Add the following statement into the **Statement** list, replacing the ARN below with the ARN of your
+    CodeBuild project created for deploying the application:
 
 ```json
     {
