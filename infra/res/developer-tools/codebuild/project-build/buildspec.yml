@@ -28,9 +28,9 @@ phases:
     commands:
       - echo Build finished `date`
       - echo Validating AWS CloudFormation template...
-      - aws cloudformation validate-template --template-body file://cdk.out/cicd.template.json
+      - aws cloudformation validate-template --template-body file://infra/cdk.out/cicd.template.json
       - echo Pushing Docker image...
       - docker push $ECR_REPO_URI:$CODEBUILD_RESOLVED_SOURCE_VERSION
 artifacts:
   files:
-    - cdk.out/cicd.template.json
+    - infra/cdk.out/cicd.template.json
