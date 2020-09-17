@@ -47,7 +47,7 @@ need to edit the trust relationship so that the CodeBuild role ARN is allowed to
 ```
 6.  Click the **Update Trust Policy** button.
 
-Now, the **KubectlApply** action in the **Deploy** stage of CodePipeline should be able to execute correctly.
+Now, the **KubectlApply** action in the **Deploy** stage of CodePipeline should be able to execute successfully.
 
 ## Destroy Stack
 
