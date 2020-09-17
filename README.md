@@ -7,13 +7,13 @@ Deploy an example app with CI/CD in an existing EKS cluster.
 ```bash
 npm uninstall -g cdk
 npm i -g aws-cdk@1.57.0 crpm@2.1.0 typescript
-npm i
 
 # Clone the infrastructure code
 git clone https://github.com/mscribe/crpm-eks-app
 
 # Change directory
 cd crpm-eks-app/infra
+npm i
 
 # Deploy the application CI/CD, which deploys the application
 # Replace the first ? with the management role ARN used to
@@ -52,8 +52,9 @@ Now, the **KubectlApply** action in the **Deploy** stage of CodePipeline should 
 ## Destroy Stack
 
 ```bash
-# Delete the deployment
-kubectl delete deploy app
+# Delete the deployment and service
+kubectl delete deployment app
+kubectl delete svc app
 
 # Destroy the CI/CD pipeline
 cdk destroy cicd

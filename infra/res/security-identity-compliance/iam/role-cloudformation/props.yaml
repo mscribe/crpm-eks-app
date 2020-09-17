@@ -52,6 +52,7 @@ policies:
             - 'codecommit:*'
             - 'codebuild:*'
             - 'codepipeline:*'
+            - 'ecr:DescribeRepositories'
             - 'events:*'
             - 'iam:*'
             - 'lambda:*'
