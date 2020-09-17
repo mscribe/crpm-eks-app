@@ -153,10 +153,10 @@ export class CicdStack extends cdk.Stack {
     stages[2].actions[0].configuration.ParameterOverrides = cdk.Fn.join('', ['{"EksRoleArn": "', eksRoleArnParameter.valueAsString, '","ClusterName": "', clusterNameParameter.valueAsString, '"}']);
     stages[2].actions[0].configuration.RoleArn = cfnRole.attrArn;
     stages[2].actions[0].configuration.StackName = cdk.Aws.STACK_NAME;
-    stages[3].actions[0].configuration.ParameterOverrides = stages[2].actions[0].configuration.ParameterOverrides;
-    stages[3].actions[0].configuration.RoleArn = cfnRole.attrArn;
-    stages[3].actions[0].configuration.StackName = cdk.Aws.STACK_NAME;
-    stages[3].actions[1].configuration.ProjectName = deployProject.ref;
+    stages[2].actions[1].configuration.ParameterOverrides = stages[2].actions[0].configuration.ParameterOverrides;
+    stages[2].actions[1].configuration.RoleArn = cfnRole.attrArn;
+    stages[2].actions[1].configuration.StackName = cdk.Aws.STACK_NAME;
+    stages[2].actions[2].configuration.ProjectName = deployProject.ref;
     pipelineProps.artifactStore = {
       location: artifactBucketName,
       type: 'S3'
