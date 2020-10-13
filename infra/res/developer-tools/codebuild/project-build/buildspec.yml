@@ -5,9 +5,9 @@ phases:
       docker: 19
       nodejs: 10
     commands:
-      - echo Installing correct version of AWS CDK...
-      - npm uninstall -g cdk
-      - npm install -g aws-cdk@1.57.0 typescript
+      - echo Make sure AWS CDK and TypeScript are installed...
+      - npm install -g aws-cdk
+      - npm install -g typescript
       - echo Installing CDK application...
       - cd infra
       - npm i
