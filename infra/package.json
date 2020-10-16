@@ -1,7 +1,7 @@
 {
-  "name": "crpm-eks",
+  "name": "crpm-eks-app",
   "version": "1.0.0",
-  "description": "Create an EKS cluster from property files",
+  "description": "Create an app running in an EKS cluster from property files",
   "license": "Apache-2.0",
   "author": {
     "name": "SHI International Corp.",
@@ -10,10 +10,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mscribe/crpm-eks.git"
+    "url": "https://github.com/shi/crpm-eks-app.git"
   },
   "bin": {
-    "crpm-eks": "bin/crpm-eks.js"
+    "crpm-eks-app": "bin/app.js"
   },
   "scripts": {
     "build": "tsc",
